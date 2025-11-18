@@ -1,5 +1,12 @@
 'use client';
 
+import HeroStyle1 from './hero/HeroStyle1';
+import HeroStyle2 from './hero/HeroStyle2';
+import HeroStyle3 from './hero/HeroStyle3';
+import HeroStyle4 from './hero/HeroStyle4';
+import HeroStyle5 from './hero/HeroStyle5';
+import HeroStyle7 from './hero/HeroStyle7';
+
 interface HeroStyleSelectorProps {
   selectedStyle: number;
   onStyleSelect: (style: number) => void;
@@ -8,6 +15,10 @@ interface HeroStyleSelectorProps {
   title: string;
   subtitle: string;
   heroImage?: string;
+  backgroundColor?: string;
+  textColor?: string;
+  ctaText?: string;
+  ctaText2?: string;
 }
 
 export default function HeroStyleSelector({
@@ -17,7 +28,11 @@ export default function HeroStyleSelector({
   onToggle,
   title,
   subtitle,
-  heroImage
+  heroImage,
+  backgroundColor,
+  textColor,
+  ctaText,
+  ctaText2
 }: HeroStyleSelectorProps) {
   const heroStyles = [
     { id: 5, name: 'Split Left', component: 'HeroStyle1' },
@@ -28,107 +43,65 @@ export default function HeroStyleSelector({
     { id: 11, name: 'Split Right', component: 'HeroStyle7' },
   ];
 
-  // Mini preview componenten
+  // Render echte hero componenten als mini previews
   const renderMiniPreview = (styleId: number) => {
-    const previewImage = heroImage || 'https://picsum.photos/200/150';
+    const previewImage = heroImage || 'https://picsum.photos/1200/800?random=' + styleId;
+    const previewTitle = title || 'Your Tournament';
+    const previewSubtitle = subtitle || 'Build amazing experiences with our powerful tools';
+    const previewBgColor = backgroundColor || undefined;
+    const previewTextColor = textColor || undefined;
+    const previewCta1 = ctaText || undefined;
+    const previewCta2 = ctaText2 || undefined;
+
+    const commonProps = {
+      title: previewTitle,
+      subtitle: previewSubtitle,
+      heroImage: previewImage,
+      backgroundColor: previewBgColor,
+      textColor: previewTextColor,
+      ctaText: previewCta1,
+      ctaText2: previewCta2,
+    };
 
     switch (styleId) {
-      case 5: // Split Left
+      case 5:
         return (
-          <div className="w-full h-20 bg-gray-50 rounded border border-gray-200 overflow-hidden flex items-center">
-            {heroImage ? (
-              <img src={previewImage} alt="Preview" className="w-1/3 h-full object-cover flex-shrink-0" />
-            ) : (
-              <div className="w-1/3 h-full bg-gray-300 flex-shrink-0"></div>
-            )}
-            <div className="flex-1 p-2">
-              <div className="h-2 bg-gray-400 rounded mb-1 w-full"></div>
-              <div className="h-1.5 bg-gray-300 rounded w-2/3"></div>
-            </div>
+          <div className="w-full h-40 rounded-lg border border-gray-300 overflow-hidden shadow-sm" style={{ transform: 'scale(0.3)', transformOrigin: 'top left', width: '333%', height: '333%', pointerEvents: 'none' }}>
+            <HeroStyle1 {...commonProps} />
           </div>
         );
-      case 6: // Fullscreen
+      case 6:
         return (
-          <div className="w-full h-20 bg-gradient-to-br from-blue-600 to-purple-600 rounded border border-gray-200 relative overflow-hidden flex items-center justify-center">
-            {heroImage && (
-              <>
-                <img src={previewImage} alt="Preview" className="absolute inset-0 w-full h-full object-cover opacity-50" />
-                <div className="absolute inset-0 bg-black opacity-30"></div>
-              </>
-            )}
-            <div className="relative text-center">
-              <div className="h-2 bg-white rounded mb-1 w-16 mx-auto"></div>
-              <div className="h-1 bg-blue-200 rounded w-12 mx-auto"></div>
-            </div>
+          <div className="w-full h-40 rounded-lg border border-gray-300 overflow-hidden shadow-sm" style={{ transform: 'scale(0.3)', transformOrigin: 'top left', width: '333%', height: '333%', pointerEvents: 'none' }}>
+            <HeroStyle2 {...commonProps} />
           </div>
         );
-      case 7: // Background
+      case 7:
         return (
-          <div className="w-full h-20 bg-gray-900 rounded border border-gray-200 relative overflow-hidden">
-            {heroImage ? (
-              <>
-                <img src={previewImage} alt="Preview" className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-black opacity-60"></div>
-              </>
-            ) : (
-              <div className="absolute inset-0 bg-gray-900"></div>
-            )}
-            <div className="relative h-full flex items-center p-2">
-              <div className="h-2 bg-white rounded w-20"></div>
-            </div>
+          <div className="w-full h-40 rounded-lg border border-gray-300 overflow-hidden shadow-sm" style={{ transform: 'scale(0.3)', transformOrigin: 'top left', width: '333%', height: '333%', pointerEvents: 'none' }}>
+            <HeroStyle3 {...commonProps} />
           </div>
         );
-      case 8: // Card
+      case 8:
         return (
-          <div className="w-full h-20 bg-gray-200 rounded border border-gray-200 flex items-center justify-center p-1">
-            <div className="bg-white rounded shadow-md flex h-full w-full">
-              {heroImage ? (
-                <img src={previewImage} alt="Preview" className="w-1/3 h-full object-cover flex-shrink-0 rounded-l" />
-              ) : (
-                <div className="w-1/3 bg-gray-300 flex-shrink-0 rounded-l"></div>
-              )}
-              <div className="flex-1 p-1">
-                <div className="h-2 bg-gray-400 rounded mb-1"></div>
-                <div className="h-1 bg-gray-300 rounded w-2/3"></div>
-              </div>
-            </div>
+          <div className="w-full h-40 rounded-lg border border-gray-300 overflow-hidden shadow-sm" style={{ transform: 'scale(0.3)', transformOrigin: 'top left', width: '333%', height: '333%', pointerEvents: 'none' }}>
+            <HeroStyle4 {...commonProps} />
           </div>
         );
-      case 9: // Video BG
+      case 9:
         return (
-          <div className="w-full h-20 bg-gray-900 rounded border border-gray-200 relative overflow-hidden">
-            {heroImage ? (
-              <>
-                <img src={previewImage} alt="Preview" className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-black opacity-70"></div>
-              </>
-            ) : (
-              <div className="absolute inset-0 bg-black opacity-70"></div>
-            )}
-            <div className="relative h-full flex items-center justify-center">
-              <div className="text-center">
-                <div className="h-2 bg-white rounded mb-1 w-16 mx-auto"></div>
-                <div className="h-1 bg-gray-300 rounded w-12 mx-auto"></div>
-              </div>
-            </div>
+          <div className="w-full h-40 rounded-lg border border-gray-300 overflow-hidden shadow-sm" style={{ transform: 'scale(0.3)', transformOrigin: 'top left', width: '333%', height: '333%', pointerEvents: 'none' }}>
+            <HeroStyle5 {...commonProps} />
           </div>
         );
-      case 11: // Split Right
+      case 11:
         return (
-          <div className="w-full h-20 bg-gray-50 rounded border border-gray-200 overflow-hidden flex items-center">
-            <div className="flex-1 p-2">
-              <div className="h-2 bg-gray-400 rounded mb-1 w-full"></div>
-              <div className="h-1.5 bg-gray-300 rounded w-2/3"></div>
-            </div>
-            {heroImage ? (
-              <img src={previewImage} alt="Preview" className="w-1/3 h-full object-cover flex-shrink-0" />
-            ) : (
-              <div className="w-1/3 h-full bg-gray-300 flex-shrink-0"></div>
-            )}
+          <div className="w-full h-40 rounded-lg border border-gray-300 overflow-hidden shadow-sm" style={{ transform: 'scale(0.3)', transformOrigin: 'top left', width: '333%', height: '333%', pointerEvents: 'none' }}>
+            <HeroStyle7 {...commonProps} />
           </div>
         );
       default:
-        return <div className="w-full h-20 bg-gray-100 rounded"></div>;
+        return <div className="w-full h-40 bg-gray-100 rounded-lg"></div>;
     }
   };
 
@@ -156,7 +129,7 @@ export default function HeroStyleSelector({
                     : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                 }`}
               >
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center justify-between mb-3">
                   <span className={`text-sm font-semibold ${
                     selectedStyle === style.id
                       ? 'text-blue-600 dark:text-blue-400'
@@ -165,11 +138,13 @@ export default function HeroStyleSelector({
                     {style.name}
                   </span>
                   {selectedStyle === style.id && (
-                    <span className="text-blue-600 text-xs">✓ Selected</span>
+                    <span className="text-blue-600 text-xs font-medium">✓ Selected</span>
                   )}
                 </div>
-                <div className="w-full">
-                  {renderMiniPreview(style.id)}
+                <div className="w-full h-40 rounded-lg border border-gray-200 overflow-hidden relative" style={{ transform: 'scale(1)', transformOrigin: 'center' }}>
+                  <div className="absolute inset-0" style={{ overflow: 'hidden' }}>
+                    {renderMiniPreview(style.id)}
+                  </div>
                 </div>
               </button>
             ))}

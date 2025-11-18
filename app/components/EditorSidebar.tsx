@@ -19,7 +19,6 @@ interface EditorProps {
   ctaLink3: string;
   isOpen: boolean;
   onToggle: () => void;
-  onHeaderTypeChange: (type: number) => void;
   onTitleChange: (title: string) => void;
   onSubtitleChange: (subtitle: string) => void;
   onBackgroundColorChange: (color: string) => void;
@@ -57,7 +56,6 @@ export default function EditorSidebar({
   ctaLink3,
   isOpen,
   onToggle,
-  onHeaderTypeChange,
   onTitleChange,
   onSubtitleChange,
   onBackgroundColorChange,
@@ -94,25 +92,6 @@ export default function EditorSidebar({
         {/* Editor Content */}
         <div className="h-full overflow-y-auto p-6">
           <h2 className="text-xl font-bold mb-6 text-gray-800 dark:text-gray-200">Hero Section Editor</h2>
-
-        {/* Header Type Selector */}
-        <div className="mb-6">
-          <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-            Hero Type
-          </label>
-          <select
-            value={headerType}
-            onChange={(e) => onHeaderTypeChange(Number(e.target.value))}
-            className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-          >
-            <option value={5}>Hero Style 1 - Split (Image Left)</option>
-            <option value={6}>Hero Style 2 - Fullscreen Centered</option>
-            <option value={7}>Hero Style 3 - Image Background + Overlay</option>
-            <option value={8}>Hero Style 4 - Card Layout</option>
-            <option value={9}>Hero Style 5 - Video Background</option>
-            <option value={11}>Hero Style 7 - Split (Image Right)</option>
-          </select>
-        </div>
 
         {/* Title Input */}
         <div className="mb-6">

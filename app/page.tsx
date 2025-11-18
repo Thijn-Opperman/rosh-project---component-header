@@ -12,7 +12,7 @@ import HeroStyleSelector from './components/HeroStyleSelector';
 
 export default function Home() {
   const [headerType, setHeaderType] = useState(5);
-  const [title, setTitle] = useState('Welcome to My Website');
+  const [title, setTitle] = useState('Your Tournament');
   const [subtitle, setSubtitle] = useState('Build amazing experiences with our customizable hero sections');
   const [backgroundColor, setBackgroundColor] = useState('#3b82f6');
   const [textColor, setTextColor] = useState('#ffffff');
@@ -104,7 +104,6 @@ export default function Home() {
         ctaLink3={ctaLink3}
         isOpen={isSidebarOpen}
         onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
-        onHeaderTypeChange={setHeaderType}
         onTitleChange={setTitle}
         onSubtitleChange={setSubtitle}
         onBackgroundColorChange={setBackgroundColor}
@@ -129,6 +128,10 @@ export default function Home() {
         title={title}
         subtitle={subtitle}
         heroImage={mediaType === 'image' && heroImage ? heroImage : undefined}
+        backgroundColor={backgroundColor}
+        textColor={textColor}
+        ctaText={ctaText}
+        ctaText2={ctaText2}
       />
       
       <div 
