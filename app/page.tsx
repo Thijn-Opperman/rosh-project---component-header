@@ -1,65 +1,168 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
+import HeroStyle1 from './components/hero/HeroStyle1';
+import HeroStyle2 from './components/hero/HeroStyle2';
+import HeroStyle3 from './components/hero/HeroStyle3';
+import HeroStyle4 from './components/hero/HeroStyle4';
+import HeroStyle5 from './components/hero/HeroStyle5';
+import HeroStyle7 from './components/hero/HeroStyle7';
+import EditorSidebar from './components/EditorSidebar';
+import HeroStyleSelector from './components/HeroStyleSelector';
 
 export default function Home() {
+  const [headerType, setHeaderType] = useState(5);
+  const [title, setTitle] = useState('Welcome to My Website');
+  const [subtitle, setSubtitle] = useState('Build amazing experiences with our customizable hero sections');
+  const [backgroundColor, setBackgroundColor] = useState('#3b82f6');
+  const [textColor, setTextColor] = useState('#ffffff');
+  const [padding, setPadding] = useState(40);
+  const [heroImage, setHeroImage] = useState('');
+  const [heroVideo, setHeroVideo] = useState('');
+  const [mediaType, setMediaType] = useState<'image' | 'video' | 'none'>('none');
+  const [height, setHeight] = useState(600);
+  const [ctaText, setCtaText] = useState('Button 1');
+  const [ctaLink, setCtaLink] = useState('#');
+  const [ctaText2, setCtaText2] = useState('Button 2');
+  const [ctaLink2, setCtaLink2] = useState('#');
+  const [ctaText3, setCtaText3] = useState('Button 3');
+  const [ctaLink3, setCtaLink3] = useState('#');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSelectorOpen, setIsSelectorOpen] = useState(true);
+
+  const handleFileUpload = (file: File, type: 'image' | 'video') => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const result = reader.result as string;
+      if (type === 'image') {
+        setHeroImage(result);
+        setMediaType('image');
+      } else {
+        setHeroVideo(result);
+        setMediaType('video');
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const renderHeader = () => {
+    const commonProps = {
+      title,
+      subtitle,
+      backgroundColor,
+      textColor,
+      padding,
+      heroImage: mediaType === 'image' && heroImage ? heroImage : undefined,
+      heroVideo: mediaType === 'video' && heroVideo ? heroVideo : undefined,
+      height,
+      ctaText: ctaText || undefined,
+      ctaLink,
+      ctaText2: ctaText2 || undefined,
+      ctaLink2,
+      ctaText3: ctaText3 || undefined,
+      ctaLink3,
+    };
+
+    switch (headerType) {
+      case 5:
+        return <HeroStyle1 {...commonProps} />;
+      case 6:
+        return <HeroStyle2 {...commonProps} />;
+      case 7:
+        return <HeroStyle3 {...commonProps} />;
+      case 8:
+        return <HeroStyle4 {...commonProps} />;
+      case 9:
+        return <HeroStyle5 {...commonProps} />;
+      case 11:
+        return <HeroStyle7 {...commonProps} />;
+      default:
+        return <HeroStyle1 {...commonProps} />;
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950">
+      <EditorSidebar
+        headerType={headerType}
+        title={title}
+        subtitle={subtitle}
+        backgroundColor={backgroundColor}
+        textColor={textColor}
+        padding={padding}
+        heroImage={heroImage}
+        heroVideo={heroVideo}
+        mediaType={mediaType}
+        onFileUpload={handleFileUpload}
+        onMediaTypeChange={setMediaType}
+        height={height}
+        ctaText={ctaText}
+        ctaLink={ctaLink}
+        ctaText2={ctaText2}
+        ctaLink2={ctaLink2}
+        ctaText3={ctaText3}
+        ctaLink3={ctaLink3}
+        isOpen={isSidebarOpen}
+        onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+        onHeaderTypeChange={setHeaderType}
+        onTitleChange={setTitle}
+        onSubtitleChange={setSubtitle}
+        onBackgroundColorChange={setBackgroundColor}
+        onTextColorChange={setTextColor}
+        onPaddingChange={setPadding}
+        onHeroImageChange={setHeroImage}
+        onHeroVideoChange={setHeroVideo}
+        onHeightChange={setHeight}
+        onCtaTextChange={setCtaText}
+        onCtaLinkChange={setCtaLink}
+        onCtaText2Change={setCtaText2}
+        onCtaLink2Change={setCtaLink2}
+        onCtaText3Change={setCtaText3}
+        onCtaLink3Change={setCtaLink3}
+      />
+      
+      <HeroStyleSelector
+        selectedStyle={headerType}
+        onStyleSelect={setHeaderType}
+        isOpen={isSelectorOpen}
+        onToggle={() => setIsSelectorOpen(!isSelectorOpen)}
+        title={title}
+        subtitle={subtitle}
+        heroImage={mediaType === 'image' && heroImage ? heroImage : undefined}
+      />
+      
+      <div 
+        className="transition-all duration-300" 
+        style={{ 
+          marginLeft: isSidebarOpen ? '320px' : '0',
+          marginRight: isSelectorOpen ? '320px' : '0'
+        }}
+      >
+        {renderHeader()}
+        <main className="container mx-auto px-6 py-12">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-8">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">
+              Preview Area
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              De hero section hierboven kan worden aangepast via de editor aan de linkerkant. 
+              Gebruik de knop links om de editor uit te klappen of in te klappen. Je kunt verschillende 
+              hero styles kiezen, hero images toevoegen, en call-to-action buttons configureren.
+            </p>
+            <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Bekijk alle 6 herbruikbare hero components:
+              </p>
+              <a
+                href="/heroes"
+                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+              >
+                Bekijk Hero Library →
+              </a>
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
